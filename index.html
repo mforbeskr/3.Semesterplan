@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="da">
+
 <head>
   <meta charset="UTF-8" />
   <title>Magnus – Studieplan Uge 36–48</title>
@@ -242,6 +243,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="wrapper">
     <header>
@@ -293,20 +295,25 @@
           <div class="course-card">
             <div class="course-header">
               <div class="course-name">CAO – Computerarkitektur</div>
-              <div class="course-tag focus">Fokus: tal & logik</div>
+              <div class="course-tag focus">Fokus: CPU & Number Systems</div>
             </div>
+
             <div class="course-section-title">Mål denne uge</div>
             <ul>
-              <li>Forstå binære tal og 2’s komplement.</li>
-              <li>Få overblik over kursusindhold og eksamensform.</li>
+              <li>Forstå “the big picture”: software → OS → hardware.</li>
+              <li>Kunne forklare CPU’ens hovedkomponenter (registre, ALU, kontrolenhed).</li>
+              <li>Forstå fetch–decode–execute cyklussen.</li>
+              <li>Forstå det binære talsystem og addition i binær.</li>
             </ul>
+
             <div class="course-section-title">Konkrete opgaver</div>
             <ul>
-              <li>Mandag: brug forelæsning til at få styr på binære tal.</li>
-              <li>Tirsdag: lav små regneeksempler med 2’s komplement (noter i CAO/Binære tal).</li>
-              <li>Onsdag: se evt. kort video om boolsk algebra og skriv 5 nøglepunkter.</li>
+              <li>Mandag: følg introduktion om CPU, RAM, I/O og number systems.</li>
+              <li>Tirsdag: tegn et CPU‑blokdiagram og skriv 8–10 forklarende bullet points.</li>
+              <li>Onsdag: lav binær addition (fra slides) og 3 “forklar dette”-kort: CPU, ALU, binary.</li>
             </ul>
           </div>
+
 
           <div class="course-card">
             <div class="course-header">
@@ -398,20 +405,26 @@
 
           <div class="course-card">
             <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag focus">Fokus: boolsk algebra</div>
+              <div class="course-name">CAO – Computerarkitektur</div>
+              <div class="course-tag focus">Fokus: RAM, Adressering & Logiske Kredsløb</div>
             </div>
-            <div class="course-section-title">Mål</div>
+
+            <div class="course-section-title">Mål denne uge</div>
             <ul>
-              <li>Forstå AND, OR, NOT, XOR og sandhedstabeller.</li>
-              <li>Kunne reducere simple logiske udtryk.</li>
+              <li>Forstå RAM‑strukturen og hvad en adresse er.</li>
+              <li>Kunne forklare stack vs heap og memory map.</li>
+              <li>Forstå basale logiske porte (AND, OR, NOT, XOR).</li>
+              <li>Kunne kombinere porte til simple kredsløb (half‑adder, full‑adder).</li>
             </ul>
+
             <div class="course-section-title">Konkrete opgaver</div>
             <ul>
-              <li>Mandag: følg undervisning om logiske porte og sandhedstabeller.</li>
-              <li>Onsdag: lav 5–10 små logiske udtryk og tegn sandhedstabeller (CAO/Logiske kredsløb).</li>
+              <li>Mandag: undervisning om RAM, adressering og logiske kredsløb.</li>
+              <li>Tirsdag: lav små RAM‑eksempler: “Adresse 0x0042 indeholder værdien 12”.</li>
+              <li>Onsdag: tegn en half‑adder i Logisim og lav 3 “forklar dette”-kort: RAM, stack/heap, adder.</li>
             </ul>
           </div>
+
 
           <div class="course-card">
             <div class="course-header">
@@ -503,20 +516,26 @@
 
           <div class="course-card">
             <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag focus">Fokus: assembly intro</div>
+              <div class="course-name">CAO – Computerarkitektur</div>
+              <div class="course-tag focus">Fokus: I/O, Interrupts & ATmega2560</div>
             </div>
-            <div class="course-section-title">Mål</div>
+
+            <div class="course-section-title">Mål denne uge</div>
             <ul>
-              <li>Forstå grundlæggende assembler-syntaks.</li>
-              <li>Kunne skrive et meget simpelt program til ATmega (fx LED blink).</li>
+              <li>Forstå hvad en I/O‑port er og hvordan CPU læser/skriver til den.</li>
+              <li>Kunne forklare hvad et interrupt er og hvorfor det bruges.</li>
+              <li>Forstå ATmega2560 som “system on a chip” (CPU + RAM + I/O).</li>
+              <li>Få en intro til assembly med fokus på I/O‑operationer.</li>
             </ul>
+
             <div class="course-section-title">Konkrete opgaver</div>
             <ul>
-              <li>Mandag: følg introduktion til assembler og registre.</li>
-              <li>Onsdag: skriv et lille assembly-program og kommentér hver linje (CAO/Assembly).</li>
+              <li>Mandag: undervisning om I/O, interrupts og ATmega2560.</li>
+              <li>Tirsdag: skriv et lille assembly‑eksempel med kommentarer (fx PORTB = 0xFF).</li>
+              <li>Onsdag: lav 3 “forklar dette”-kort: I/O‑port, interrupt, ATmega2560.</li>
             </ul>
           </div>
+
 
           <div class="course-card">
             <div class="course-header">
@@ -1622,4 +1641,5 @@
     });
   </script>
 </body>
+
 </html>
