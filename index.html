@@ -3,1643 +3,1920 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Magnus – Studieplan Uge 36–48</title>
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --accent: #38bdf8;
-      --accent-soft: #0ea5e9;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --danger: #f97373;
-      --success: #4ade80;
-      --border: #334155;
-      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: var(--font);
-      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
-      color: var(--text);
-    }
-
-    .wrapper {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 16px 48px;
-    }
-
-    header {
-      margin-bottom: 24px;
-    }
-
-    header h1 {
-      font-size: 2.2rem;
-      margin: 0 0 8px;
-      color: #f9fafb;
-    }
-
-    header p {
-      margin: 4px 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .pill.accent {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .week-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 16px 0 20px;
-    }
-
-    .week-btn {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .week-btn:hover {
-      border-color: var(--accent-soft);
-      color: var(--accent-soft);
-    }
-
-    .week-btn.active {
-      background: var(--accent-soft);
-      border-color: var(--accent-soft);
-      color: #0b1120;
-      font-weight: 600;
-    }
-
-    .week-card {
-      background: linear-gradient(135deg, #020617, #0b1120);
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      padding: 18px 18px 20px;
-      margin-bottom: 14px;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.75);
-      display: none;
-    }
-
-    .week-card.active {
-      display: block;
-    }
-
-    .week-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 10px;
-    }
-
-    .week-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .week-range {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .week-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .course-card {
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: 12px;
-      border: 1px solid #1f2937;
-      padding: 10px 10px 12px;
-    }
-
-    .course-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .course-name {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .course-tag {
-      font-size: 0.75rem;
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .course-tag.exam {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .course-tag.project {
-      border-color: var(--success);
-      color: var(--success);
-    }
-
-    .course-tag.focus {
-      border-color: var(--danger);
-      color: var(--danger);
-    }
-
-    .course-section-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--muted);
-      margin: 6px 0 4px;
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
-
-    li {
-      font-size: 0.8rem;
-      color: var(--text);
-      margin: 2px 0;
-      position: relative;
-      padding-left: 12px;
-    }
-
-    li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: var(--accent-soft);
-      font-size: 0.9rem;
-    }
-
-    .day-row {
-      margin-top: 10px;
-      border-top: 1px dashed #1f2937;
-      padding-top: 8px;
-    }
-
-    .day-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-
-    .footer-note {
-      margin-top: 24px;
-      font-size: 0.8rem;
-      color: var(--muted);
-      border-top: 1px solid #1f2937;
-      padding-top: 10px;
-    }
-
-    @media (max-width: 700px) {
-      .week-header {
-        flex-direction: column;
-        gap: 4px;
-      }
-    }
-  </style>
+  <title>Min Studieplan Uge 36–48</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
   <div class="wrapper">
     <header>
-      <h1>Studieplan – Uge 36–48</h1>
+      <h1>Studieplan for semesteret</h1>
       <p>Softwareingeniør, 3. semester – ADS, CAO, DNP, DSY, SEP3.</p>
-      <p>Mandag, torsdag, fredag: undervisning · Tirsdag & onsdag: fokusdage · Aftener: korte blokke.</p>
-      <div class="pill-row">
-        <span class="pill accent">Mål: rolig, stabil fremgang mod eksamen</span>
-        <span class="pill">Barn 14:30–20 → mikro-læring</span>
-        <span class="pill">Kattis: grønne prikker + ADS-træning</span>
-        <span class="pill">Projekt: SEP3 løbende, ikke panik til sidst</span>
-      </div>
+      <p>Mandag, Tirsdag, Fredag: Undervisning · Onsdag & Torsdag: Fokusdage · Aftener: Korte sessions.</p>
+
     </header>
 
-    <div class="week-nav" id="weekNav">
-      <!-- Buttons for weeks 36–48 -->
+    <div class="week-nav" id="weekNav"></div>
+
+    <div class="course-filter">
+      <button data-course="all" class="filter-btn active">Alle</button>
+      <button data-course="ads" class="filter-btn">ADS</button>
+      <button data-course="cao" class="filter-btn">CAO</button>
+      <button data-course="dnp" class="filter-btn">DNP</button>
+      <button data-course="dsy" class="filter-btn">DSY</button>
+      <button data-course="sep3" class="filter-btn">SEP3</button>
+      <button data-course="evening" class="filter-btn">Aften</button>
     </div>
 
-    <!-- Week cards -->
+
     <div id="weeks">
 
-      <!-- UGE 36 -->
+      <!-- ========================= -->
+      <!-- UGE 36 – Kickoff & Overblik -->
+      <!-- ========================= -->
       <section class="week-card active" data-week="36">
         <div class="week-header">
           <div class="week-title">Uge 36 – Kickoff & Overblik</div>
           <div class="week-range">Start på semesteret, første undervisningsuge.</div>
         </div>
 
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS – Algoritmer & Datastrukturer</div>
-              <div class="course-tag focus">Fokus: fundament</div>
-            </div>
-            <div class="course-section-title">Mål denne uge</div>
-            <ul>
-              <li>Forstå idéen med tidskompleksitet og Big-O.</li>
-              <li>Skelne mellem lineære og ikke-lineære datastrukturer.</li>
-              <li>Få overblik over kursusstruktur og eksamensform.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/onsdag: læs introduktion til Big-O (noter i ADS/Big-O).</li>
-              <li>Torsdag efter ADS-forelæsning: skriv 5–10 bullet points fra timen.</li>
-              <li>Lav 1–2 simple Kattis-opgaver (fx basale loops/arrays).</li>
-            </ul>
-          </div>
+        <div class="week-calendar">
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO – Computerarkitektur</div>
-              <div class="course-tag focus">Fokus: CPU & Number Systems</div>
+          <!-- Mandag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Mandag</span></div>
+            <div class="day-tasks">
+              <h4>ADS</h4>
+              <ul>
+                <li>Læs introduktion til Big-O (noter i ADS/Big-O).</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Introduktion til CPU, RAM, I/O og number systems.</li>
+              </ul>
             </div>
 
-            <div class="course-section-title">Mål denne uge</div>
-            <ul>
-              <li>Forstå “the big picture”: software → OS → hardware.</li>
-              <li>Kunne forklare CPU’ens hovedkomponenter (registre, ALU, kontrolenhed).</li>
-              <li>Forstå fetch–decode–execute cyklussen.</li>
-              <li>Forstå det binære talsystem og addition i binær.</li>
-            </ul>
-
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: følg introduktion om CPU, RAM, I/O og number systems.</li>
-              <li>Tirsdag: tegn et CPU‑blokdiagram og skriv 8–10 forklarende bullet points.</li>
-              <li>Onsdag: lav binær addition (fra slides) og 3 “forklar dette”-kort: CPU, ALU, binary.</li>
-            </ul>
-          </div>
-
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP – .NET Programmering</div>
-              <div class="course-tag focus">Fokus: setup</div>
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>1 Kattis-opgave eller kort repetition.</li>
+              </ul>
             </div>
-            <div class="course-section-title">Mål denne uge</div>
-            <ul>
-              <li>Få udviklingsmiljøet til at fungere (Visual Studio / Rider / VS Code).</li>
-              <li>Forstå grundlæggende C#-struktur (klasser, metoder, namespaces).</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: følg introduktion i undervisningen, lav første små C#-programmer.</li>
-              <li>Onsdag: opret DNP-projektmappe i OneDrive og lav “Projektlog” note.</li>
-            </ul>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY – Distribuerede systemer</div>
-              <div class="course-tag focus">Fokus: begreber</div>
+          <!-- Tirsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Tirsdag</span></div>
+            <div class="day-tasks">
+              <h4>ADS</h4>
+              <ul>
+                <li>1–2 timer ADS: læs Big-O og lav små øvelser.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Tegn CPU‑blokdiagram og skriv 8–10 forklarende bullet points.</li>
+              </ul>
+
+              <h4>DSY</h4>
+              <ul>
+                <li>Skriv note “Hvad er et distribueret system?” i DSY/Arkitekturer.</li>
+              </ul>
             </div>
-            <div class="course-section-title">Mål denne uge</div>
-            <ul>
-              <li>Forstå hvad et distribueret system er, og hvorfor det bruges.</li>
-              <li>Skelne mellem monolit, client-server og simple distribuerede arkitekturer.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: brug forelæsning til at få overblik over kursus og begreber.</li>
-              <li>Tirsdag/onsdag: skriv en kort note “Hvad er et distribueret system?” i DSY/Arkitekturer.</li>
-            </ul>
-          </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3 – Semesterprojekt</div>
-              <div class="course-tag project">Fokus: rammesætning</div>
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>1 Kattis-opgave.</li>
+              </ul>
             </div>
-            <div class="course-section-title">Mål denne uge</div>
-            <ul>
-              <li>Forstå projektets overordnede krav og tema (heterogene systemer).</li>
-              <li>Få styr på gruppesammensætning og kommunikationskanaler.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: deltag aktivt i projektintroduktion og gruppedannelse.</li>
-              <li>Torsdag aften: opret SEP3-mappe og note “Projektidé + første tanker”.</li>
-            </ul>
           </div>
-        </div>
 
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – fokusdage</div>
-          <ul>
-            <li>Tirsdag: 1–2 timer ADS + 1 time CAO (noter og små øvelser).</li>
-            <li>Onsdag: 1–2 timer DNP setup + 1 time DSY begreber.</li>
-            <li>Aften (20–30 min): 1 Kattis-opgave eller kort repetition.</li>
-          </ul>
+          <!-- Onsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Onsdag</span></div>
+            <div class="day-tasks">
+              <h4>DNP</h4>
+              <ul>
+                <li>1–2 timer DNP setup (IDE, projektstruktur).</li>
+                <li>Opret DNP-projektmappe og “Projektlog”.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Lav binær addition og 3 “forklar dette”-kort: CPU, ALU, binary.</li>
+              </ul>
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>1 Kattis-opgave eller kort repetition.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Torsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Torsdag</span></div>
+            <div class="day-tasks">
+              <h4>ADS</h4>
+              <ul>
+                <li>Efter forelæsning: skriv 5–10 bullet points fra timen.</li>
+              </ul>
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Følg introduktion i undervisningen, lav første små C#-programmer.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Aften: opret SEP3-mappe og note “Projektidé + første tanker”.</li>
+              </ul>
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>1–2 simple Kattis-opgaver.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Fredag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Fredag</span></div>
+            <div class="day-tasks">
+              <h4>DSY</h4>
+              <ul>
+                <li>Brug forelæsning til overblik over kursus og begreber.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Opfølgning på projektintroduktion / gruppedannelse.</li>
+              </ul>
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>1 Kattis-opgave eller kort repetition.</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </section>
 
+
+
       <!-- UGE 37 -->
+      <!-- ========================= -->
+      <!-- UGE 37 – Big-O & Binær logik -->
+      <!-- ========================= -->
       <section class="week-card" data-week="37">
         <div class="week-header">
           <div class="week-title">Uge 37 – Big-O & Binær logik</div>
           <div class="week-range">Bygger fundamentet videre.</div>
         </div>
 
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag focus">Fokus: Big-O</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne analysere simple algoritmer med Big-O (O(1), O(n), O(n²)).</li>
-              <li>Forstå forskellen på tid og plads-kompleksitet.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: følg forelæsning om Big-O, skriv eksempler i ADS/Big-O.</li>
-              <li>Tirsdag: lav 3–4 små algoritmer (fx lineær søgning, dobbelt loop) og vurder Big-O.</li>
-              <li>Lav 2 Kattis-opgaver med fokus på simple loops og arrays.</li>
-            </ul>
-          </div>
+        <div class="week-calendar">
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO – Computerarkitektur</div>
-              <div class="course-tag focus">Fokus: RAM, Adressering & Logiske Kredsløb</div>
+          <!-- Mandag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Mandag</span></div>
+            <div class="day-tasks">
+              <h4>CAO</h4>
+              <ul>
+                <li>Undervisning om RAM, adressering og logiske kredsløb.</li>
+              </ul>
             </div>
 
-            <div class="course-section-title">Mål denne uge</div>
-            <ul>
-              <li>Forstå RAM‑strukturen og hvad en adresse er.</li>
-              <li>Kunne forklare stack vs heap og memory map.</li>
-              <li>Forstå basale logiske porte (AND, OR, NOT, XOR).</li>
-              <li>Kunne kombinere porte til simple kredsløb (half‑adder, full‑adder).</li>
-            </ul>
-
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: undervisning om RAM, adressering og logiske kredsløb.</li>
-              <li>Tirsdag: lav små RAM‑eksempler: “Adresse 0x0042 indeholder værdien 12”.</li>
-              <li>Onsdag: tegn en half‑adder i Logisim og lav 3 “forklar dette”-kort: RAM, stack/heap, adder.</li>
-            </ul>
-          </div>
-
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag focus">Fokus: C# basics</div>
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kortis repetition.</li>
+              </ul>
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne skrive simple C#-klasser og metoder.</li>
-              <li>Forstå typer, kontrolstrukturer og fejl-håndtering.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: lav små øvelser i undervisningen (klasser, properties, metoder).</li>
-              <li>Onsdag: lav en lille konsolapp (fx todo-liste) og gem i DNP/Projektlog.</li>
-            </ul>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag focus">Fokus: arkitekturer</div>
+          <!-- Tirsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Tirsdag</span></div>
+            <div class="day-tasks">
+              <h4>ADS</h4>
+              <ul>
+                <li>Lav 3–4 små algoritmer og vurder Big-O.</li>
+              </ul>
+
+              <h4>DSY</h4>
+              <ul>
+                <li>Tegn et simpelt client-server diagram.</li>
+              </ul>
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Skelne mellem client-server, P2P og simple distribuerede systemer.</li>
-              <li>Forstå begrebet “middleware” på et overordnet niveau.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: følg undervisning om arkitekturer og noter nøglebegreber.</li>
-              <li>Tirsdag: tegn et simpelt client-server diagram i DSY/Diagrammer.</li>
-            </ul>
-          </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: problemformulering</div>
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>2 Kattis-opgaver.</li>
+              </ul>
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Formulere en foreløbig problemformulering.</li>
-              <li>Beslutte overordnet teknologistak (fx .NET + REST + messaging).</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: gruppemøde om projektidé og krav.</li>
-              <li>Torsdag aften: skriv ½ side “Foreløbig problemformulering” i SEP3/Rapport.</li>
-            </ul>
           </div>
-        </div>
 
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – fokus</div>
-          <ul>
-            <li>Tirsdag: 1,5 time ADS (Big-O øvelser) + 1 time DSY (diagrammer).</li>
-            <li>Onsdag: 1,5 time DNP (konsolapp) + 1 time CAO (logiske udtryk).</li>
-            <li>Aften: 1 Kattis-opgave + kort repetition af ugens noter.</li>
-          </ul>
+          <!-- Onsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Onsdag</span></div>
+            <div class="day-tasks">
+              <h4>DNP</h4>
+              <ul>
+                <li>Lav en lille konsolapp og gem i DNP/Projektlog.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Tegn half‑adder i Logisim og lav 3 “forklar dette”-kort.</li>
+              </ul>
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>1 Kattis-opgave.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Torsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Torsdag</span></div>
+            <div class="day-tasks">
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning om Big-O, noter eksempler.</li>
+              </ul>
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Små øvelser i klasser, properties, metoder.</li>
+              </ul>
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>1 Kattis-opgave.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Fredag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Fredag</span></div>
+            <div class="day-tasks">
+              <h4>DSY</h4>
+              <ul>
+                <li>Undervisning om arkitekturer og begreber.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppemøde om projektidé og krav.</li>
+              </ul>
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Let repetition.</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- UGE 38 -->
+
+      <!-- ========================= -->
+      <!-- UGE 38 – Konsolidering & Stabilitet -->
+      <!-- ========================= -->
       <section class="week-card" data-week="38">
         <div class="week-header">
-          <div class="week-title">Uge 38 – Datastrukturer & Assembly-intro</div>
-          <div class="week-range">Fra teori til mere praksis.</div>
+          <div class="week-title">Uge 38 – Konsolidering & Stabilitet</div>
+          <div class="week-range">Bygger videre på Big-O, binær logik og DNP‑fundament.</div>
         </div>
 
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag focus">Fokus: lister & stacks</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå arrays, linked lists, stacks og queues.</li>
-              <li>Kunne implementere simple versioner i et objektorienteret sprog.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: følg undervisning om lineære datastrukturer.</li>
-              <li>Tirsdag: implementér en stack og queue (fx i C# eller Java) og skriv noter i ADS/Datastrukturer.</li>
-              <li>Lav 2 Kattis-opgaver med brug af lister/queues.</li>
-            </ul>
-          </div>
+        <div class="week-calendar">
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO – Computerarkitektur</div>
-              <div class="course-tag focus">Fokus: I/O, Interrupts & ATmega2560</div>
+          <!-- Mandag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Mandag</span></div>
+            <div class="day-tasks">
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Big-O eksempler og sammenligninger.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>RAM‑adressering + simple logiske kredsløb.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppen fastlægger projektets scope.</li>
+              </ul>
             </div>
 
-            <div class="course-section-title">Mål denne uge</div>
-            <ul>
-              <li>Forstå hvad en I/O‑port er og hvordan CPU læser/skriver til den.</li>
-              <li>Kunne forklare hvad et interrupt er og hvorfor det bruges.</li>
-              <li>Forstå ATmega2560 som “system on a chip” (CPU + RAM + I/O).</li>
-              <li>Få en intro til assembly med fokus på I/O‑operationer.</li>
-            </ul>
-
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: undervisning om I/O, interrupts og ATmega2560.</li>
-              <li>Tirsdag: skriv et lille assembly‑eksempel med kommentarer (fx PORTB = 0xFF).</li>
-              <li>Onsdag: lav 3 “forklar dette”-kort: I/O‑port, interrupt, ATmega2560.</li>
-            </ul>
-          </div>
-
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag focus">Fokus: web basics</div>
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå ASP.NET-projektstruktur.</li>
-              <li>Kunne lave en simpel webside med routing.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: opret første ASP.NET-projekt i undervisningen.</li>
-              <li>Onsdag: tilføj 1–2 ekstra routes og views, dokumentér i DNP/Projektlog.</li>
-            </ul>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag focus">Fokus: kommunikation</div>
+          <!-- Tirsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Tirsdag</span></div>
+            <div class="day-tasks">
+              <h4>ADS</h4>
+              <ul>
+                <li>Lav 2 små algoritmer og vurder tidskompleksitet.</li>
+              </ul>
+
+              <h4>DSY</h4>
+              <ul>
+                <li>Skriv note: “Hvad betyder latency og throughput?”.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Lav 5 binære konverteringsøvelser.</li>
+              </ul>
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå forskellen på direkte og indirekte kommunikation.</li>
-              <li>Få overblik over REST vs messaging.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: følg undervisning om kommunikationsparadigmer.</li>
-              <li>Tirsdag: skriv en kort sammenligning “REST vs messaging” i DSY/Kommunikation.</li>
-            </ul>
-          </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: arkitektur-skitse</div>
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 medium opgave).</li>
+              </ul>
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Tegne første udkast til systemarkitektur.</li>
-              <li>Beslutte hvilke komponenter der skal være hvor.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: gruppemøde om arkitektur.</li>
-              <li>Torsdag aften: lav arkitekturdiagram i SEP3/Arkitektur.</li>
-            </ul>
           </div>
-        </div>
 
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – praksis</div>
-          <ul>
-            <li>Tirsdag: 2 timer ADS (implementér datastrukturer) + 1 time DSY (kommunikationsnoter).</li>
-            <li>Onsdag: 1,5 time DNP (ASP.NET routes) + 1 time CAO (assembly-kommentarer).</li>
-            <li>Aften: 1 Kattis-opgave med fokus på datastrukturer.</li>
-          </ul>
+          <!-- Onsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Onsdag</span></div>
+            <div class="day-tasks">
+              <h4>DNP</h4>
+              <ul>
+                <li>Lav en lille C#‑øvelse med klasser og metoder.</li>
+                <li>Opdater “Projektlog” med dagens læring.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Byg en full‑adder i Logisim.</li>
+              </ul>
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Torsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Torsdag</span></div>
+            <div class="day-tasks">
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: sammenligning af datastrukturer.</li>
+              </ul>
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Øvelser i properties og simple objekter.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Aften: skriv 5 bullet points til projektets problemformulering.</li>
+              </ul>
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 medium opgave).</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Fredag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Fredag</span></div>
+            <div class="day-tasks">
+              <h4>DSY</h4>
+              <ul>
+                <li>Forelæsning: arkitekturer + begreber.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppemøde: afklar roller og arbejdsfordeling.</li>
+              </ul>
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- UGE 39 -->
+
+      <!-- ========================= -->
+      <!-- UGE 39 – ADS Datastrukturer & CAO Logiske Kredsløb -->
+      <!-- ========================= -->
       <section class="week-card" data-week="39">
         <div class="week-header">
-          <div class="week-title">Uge 39 – Træer & CPU</div>
-          <div class="week-range">Mere avancerede strukturer og arkitektur.</div>
+          <div class="week-title">Uge 39 – ADS Datastrukturer & CAO Logiske Kredsløb</div>
+          <div class="week-range">Fokus på lister, arrays, stack/queue og logiske kredsløb.</div>
         </div>
 
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag focus">Fokus: træer</div>
+        <div class="week-calendar">
+
+          <!-- Mandag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Mandag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Arrays, Lists, Linked Lists.</li>
+                <li>Noter 8–12 bullet points fra undervisningen.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Logiske kredsløb: AND, OR, NOT, NAND.</li>
+                <li>Lav 4 små sandhedstabeller.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppen fastlægger projektets første milepæle.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå binære træer og evt. BST.</li>
-              <li>Kunne traversere træer (pre/in/post-order).</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: følg undervisning om træer.</li>
-              <li>Tirsdag: implementér et simpelt binært træ og skriv traverseringsmetoder.</li>
-              <li>Lav 1–2 Kattis-opgaver med rekursion eller træ-lignende struktur.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag focus">Fokus: CPU-arkitektur</div>
+          <!-- Tirsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Tirsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Implementér en simpel Linked List i pseudokode.</li>
+                <li>Lav 2 små øvelser om pointere.</li>
+              </ul>
+
+              <h4>DSY</h4>
+              <ul>
+                <li>Skriv note: “Hvad er en distributed queue?”.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Binær addition: lav 5 eksempler.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå registre, ALU og kontrolenhed.</li>
-              <li>Kunne forklare hvordan en instruktion eksekveres.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: følg undervisning om CPU-blokdiagram.</li>
-              <li>Onsdag: tegn et CPU-diagram og forklar dataflow i CAO/CPU-arkitektur.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 medium opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag focus">Fokus: REST API</div>
+          <!-- Onsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Onsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Lav en C#‑øvelse med en klasse “Student”.</li>
+                <li>Tilføj properties og en metode.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Byg en 2‑bit adder i Logisim.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne oprette et simpelt REST API (GET/POST).</li>
-              <li>Forstå routing, controllers og DTO’er.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: opret første REST endpoint i undervisningen.</li>
-              <li>Onsdag: tilføj 1–2 ekstra endpoints og test dem (DNP/Projektlog).</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag focus">Fokus: kontrakter</div>
+          <!-- Torsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Torsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Stack & Queue.</li>
+                <li>Noter forskelle og brugsscenarier.</li>
+              </ul>
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Øvelse: Lav en simpel “Queue” klasse i C#.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Aften: skriv 5 bullet points til projektets kravspecifikation.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå brugen af kontrakter i servicekald.</li>
-              <li>Kunne forklare hvorfor kontrakter er vigtige for robusthed.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: følg undervisning om kontrakter og interfaces.</li>
-              <li>Tirsdag: skriv en kort note “Kontrakter i distribuerede systemer” i DSY/Sikkerhed.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 medium opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: arkitektur fastlægges</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Fastlægge endelig arkitektur for projektet.</li>
-              <li>Beslutte hvilke komponenter der implementeres først.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: gruppemøde om endelig arkitektur.</li>
-              <li>Torsdag aften: opdater SEP3/Arkitektur med “Endelig arkitektur + begrundelse”.</li>
-            </ul>
-          </div>
-        </div>
+          <!-- Fredag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Fredag</span></div>
+            <div class="day-tasks">
 
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – dybde</div>
-          <ul>
-            <li>Tirsdag: 2 timer ADS (træ-implementering) + 1 time DSY (kontrakt-noter).</li>
-            <li>Onsdag: 1,5 time DNP (REST endpoints) + 1 time CAO (CPU-diagram).</li>
-            <li>Aften: 1 Kattis-opgave + kort repetition.</li>
-          </ul>
+              <h4>DSY</h4>
+              <ul>
+                <li>Forelæsning: distribuerede datastrukturer.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppemøde: planlæg sprint 1.</li>
+              </ul>
+
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- UGE 40 -->
+
+      <!-- ========================= -->
+      <!-- UGE 40 – ADS: Rekursion & CAO: ALU -->
+      <!-- ========================= -->
       <section class="week-card" data-week="40">
         <div class="week-header">
-          <div class="week-title">Uge 40 – Heaps & ORM</div>
-          <div class="week-range">Datastrukturer + data-persistens.</div>
+          <div class="week-title">Uge 40 – Rekursion, ALU & DNP klasser</div>
+          <div class="week-range">Fokus på rekursion, ALU‑forståelse og C#‑objekter.</div>
         </div>
 
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag focus">Fokus: heaps & sortering</div>
+        <div class="week-calendar">
+
+          <!-- Mandag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Mandag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Rekursion – stack frames, base cases.</li>
+                <li>Noter 10 bullet points.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>ALU: addition, subtraction, logic ops.</li>
+                <li>Tegn ALU‑blokdiagram.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppen laver første mini‑prototype.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå heap-struktur og heap-sort.</li>
-              <li>Kunne sammenligne forskellige sorteringsalgoritmer.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: undervisning om heaps og sortering.</li>
-              <li>Tirsdag: implementér en simpel heap og test heap-sort.</li>
-              <li>Lav 2 Kattis-opgaver med fokus på sortering.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (rekursion‑opgave hvis muligt).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag focus">Fokus: hukommelse</div>
+          <!-- Tirsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Tirsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Skriv rekursiv funktion: factorial, fibonacci.</li>
+                <li>Lav 2 små øvelser om stack‑dybde.</li>
+              </ul>
+
+              <h4>DSY</h4>
+              <ul>
+                <li>Skriv note: “Hvad er en distributed lock?”.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Lav 5 ALU‑sandhedstabeller.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå hukommelses-arkitekturer og adressering.</li>
-              <li>Kunne forklare forskel på stack/heap på lavt niveau.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: undervisning om hukommelse.</li>
-              <li>Onsdag: skriv note “Hukommelse & adressering” i CAO/Hukommelse.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 medium opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag focus">Fokus: ORM & database</div>
+          <!-- Onsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Onsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Lav en C#‑klasse “Car” med properties.</li>
+                <li>Tilføj ToString() og en metode.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Byg en simpel ALU i Logisim (add + AND).</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå konceptet objekt-relational mapping.</li>
-              <li>Kunne oprette en simpel database og tilknytte den via EF Core.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: opret database og EF-model i undervisningen.</li>
-              <li>Onsdag: lav 1–2 queries (CRUD) og dokumentér i DNP/Projektlog.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag focus">Fokus: middleware-valg</div>
+          <!-- Torsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Torsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Rekursion vs. iteration.</li>
+                <li>Noter forskelle og brugsscenarier.</li>
+              </ul>
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Øvelse: Lav en “BankAccount” klasse.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Aften: skriv 5 bullet points til projektets arkitektur.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne argumentere for valg af middleware til et givet system.</li>
-              <li>Forstå fordele/ulemper ved forskellige teknologier.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: undervisning om middleware.</li>
-              <li>Tirsdag: skriv note “Middleware-valg til SEP3” i DSY/Middleware.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (rekursion‑relateret opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: første prototype</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have en første kørende prototype (fx simpel kommunikation mellem 2 komponenter).</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: implementér første ende-til-ende flow.</li>
-              <li>Torsdag aften: skriv “Prototype status” i SEP3/Projektlog.</li>
-            </ul>
-          </div>
-        </div>
+          <!-- Fredag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Fredag</span></div>
+            <div class="day-tasks">
 
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – systembygning</div>
-          <ul>
-            <li>Tirsdag: 2 timer ADS (heap/sortering) + 1 time DSY (middleware-noter).</li>
-            <li>Onsdag: 2 timer DNP (EF Core) + 1 time CAO (hukommelse).</li>
-            <li>Aften: 1 Kattis-opgave.</li>
-          </ul>
+              <h4>DSY</h4>
+              <ul>
+                <li>Forelæsning: distribuerede algoritmer.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppemøde: sprint 1 review.</li>
+              </ul>
+
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- UGE 41 -->
+
+      <!-- ========================= -->
+      <!-- UGE 41 – ADS: Sorting & CAO: CPU-arkitektur -->
+      <!-- ========================= -->
       <section class="week-card" data-week="41">
         <div class="week-header">
-          <div class="week-title">Uge 41 – Grafer & sikkerhed</div>
-          <div class="week-range">Forbereder dig til mere komplekse systemer.</div>
+          <div class="week-title">Uge 41 – Sorting, CPU-arkitektur & DNP objekter</div>
+          <div class="week-range">Fokus på sorteringsalgoritmer, CPU‑design og C#‑objekter.</div>
         </div>
 
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag focus">Fokus: grafer</div>
+        <div class="week-calendar">
+
+          <!-- Mandag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Mandag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Bubble Sort, Insertion Sort.</li>
+                <li>Noter 10 bullet points.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>CPU‑arkitektur: fetch–decode–execute.</li>
+                <li>Tegn pipeline‑diagram.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppen arbejder på prototype iteration 2.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå grafer (noder, kanter, vægte).</li>
-              <li>Kunne implementere DFS og BFS.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: undervisning om grafer.</li>
-              <li>Tirsdag: implementér DFS/BFS og test på små grafer.</li>
-              <li>Lav 1–2 Kattis-opgaver med graf-lignende problemer.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag focus">Fokus: digital elektronik</div>
+          <!-- Tirsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Tirsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Implementér Bubble Sort og Insertion Sort i pseudokode.</li>
+                <li>Lav 2 små øvelser om worst‑case vs. best‑case.</li>
+              </ul>
+
+              <h4>DSY</h4>
+              <ul>
+                <li>Skriv note: “Hvad er consistency models?”.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Lav 5 fetch–decode–execute eksempler.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå simple digitale kredsløb (adders, flip-flops).</li>
-              <li>Kunne analysere et lille kredsløb.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: undervisning om digitale kredsløb.</li>
-              <li>Onsdag: tegn et lille kredsløb og forklar funktion i CAO/Logiske kredsløb.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 medium opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag focus">Fokus: auth</div>
+          <!-- Onsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Onsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Lav en C#‑klasse “Book” med properties.</li>
+                <li>Tilføj ToString() og en metode.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Byg en simpel CPU‑pipeline i Logisim.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå grundlæggende autentificering og autorisation.</li>
-              <li>Kunne implementere simpel login-løsning.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: undervisning om auth i ASP.NET.</li>
-              <li>Onsdag: implementér simpel login og rolle-check, dokumentér i DNP/Projektlog.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag focus">Fokus: sikkerhed</div>
+          <!-- Torsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Torsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Merge Sort.</li>
+                <li>Noter rekursionstræ og tidskompleksitet.</li>
+              </ul>
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Øvelse: Lav en “Library” klasse med en liste af Book‑objekter.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Aften: skriv 5 bullet points til projektets arkitekturdiagram.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå nyttige kvaliteter (sikkerhed, robusthed, skalerbarhed).</li>
-              <li>Kunne forklare basale sikkerhedsteknologier.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: undervisning om sikkerhed i distribuerede systemer.</li>
-              <li>Tirsdag: skriv note “Sikkerhedskrav til SEP3” i DSY/Sikkerhed.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (Merge‑Sort‑relateret opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: sikkerhed & robusthed</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Indarbejde sikkerhed og robusthed i arkitekturen.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: gruppemøde om sikkerhed og fejl-håndtering.</li>
-              <li>Torsdag aften: opdater SEP3/Rapport med afsnit om sikkerhed.</li>
-            </ul>
-          </div>
-        </div>
+          <!-- Fredag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Fredag</span></div>
+            <div class="day-tasks">
 
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – systemkvalitet</div>
-          <ul>
-            <li>Tirsdag: 2 timer ADS (grafer) + 1 time DSY (sikkerhedskrav).</li>
-            <li>Onsdag: 2 timer DNP (auth) + 1 time CAO (kredsløbsanalyse).</li>
-            <li>Aften: 1 Kattis-opgave.</li>
-          </ul>
+              <h4>DSY</h4>
+              <ul>
+                <li>Forelæsning: distributed sorting.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppemøde: sprint 2 review.</li>
+              </ul>
+
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- UGE 42 -->
+      <!-- ========================= -->
+      <!-- UGE 42 – ADS: Trees & CAO: Instruction Set -->
+      <!-- ========================= -->
       <section class="week-card" data-week="42">
         <div class="week-header">
-          <div class="week-title">Uge 42 – Repetition & midtvejsstatus</div>
-          <div class="week-range">Samler op på første halvdel.</div>
+          <div class="week-title">Uge 42 – Træstrukturer, Instruction Set & DNP objekter</div>
+          <div class="week-range">Fokus på træer, instruktioner og C#‑objektsystemer.</div>
         </div>
 
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag exam">Fokus: repetition</div>
+        <div class="week-calendar">
+
+          <!-- Mandag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Mandag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Binary Trees, traversal (pre/in/post).</li>
+                <li>Noter 10 bullet points.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Instruction Set: MOV, ADD, SUB, LOAD, STORE.</li>
+                <li>Tegn fetch–decode–execute med instruktioner.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppen arbejder på prototype iteration 3.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Repetere Big-O, datastrukturer, grafer.</li>
-              <li>Identificere svage områder.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: kort repetition i undervisningen.</li>
-              <li>Tirsdag: lav 1 mini-“eksamenssæt” (3–4 opgaver) og skriv løsninger i ADS/Eksamensopgaver.</li>
-              <li>Lav 2 Kattis-opgaver med blandede emner.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag exam">Fokus: mundtlig forberedelse</div>
+          <!-- Tirsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Tirsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Implementér et Binary Tree i pseudokode.</li>
+                <li>Lav traversal‑øvelse (pre/in/post).</li>
+              </ul>
+
+              <h4>DSY</h4>
+              <ul>
+                <li>Skriv note: “Hvad er distributed state?”.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Lav 5 instruktionseksempler (ADD, SUB, LOAD, STORE).</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne forklare centrale emner højt (binære tal, CPU, hukommelse, assembly).</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: repetition i undervisningen.</li>
-              <li>Onsdag: lav 5 “forklar dette”-kort og øv dem højt.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 medium opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag exam">Fokus: projektstatus</div>
+          <!-- Onsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Onsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Lav en C#‑klasse “TreeNode”.</li>
+                <li>Tilføj children og traversal‑metoder.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Byg en simpel instruction‑pipeline i Logisim.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have en stabil, kørende version af projektet.</li>
-              <li>Kunne forklare arkitektur og vigtigste teknologier.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: gennemgang af projekt i undervisningen.</li>
-              <li>Onsdag: skriv “Midtvejsstatus” i DNP/Projektlog (hvad virker, hvad mangler).</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag exam">Fokus: begrebsrepetition</div>
+          <!-- Torsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Torsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Balanced Trees (intro).</li>
+                <li>Noter forskelle på balanced vs. unbalanced.</li>
+              </ul>
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Øvelse: Lav en “Tree” klasse med add‑metode.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Aften: skriv 5 bullet points til projektets datamodeller.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Repetere arkitekturer, kommunikation, middleware, sikkerhed.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: repetition i undervisningen.</li>
-              <li>Tirsdag: lav 10 “forklar dette”-kort til DSY og øv 5 af dem.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (tree‑relateret opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: midtvejsreview</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have en klar plan for anden halvdel af projektet.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: gruppemøde om status og næste skridt.</li>
-              <li>Torsdag aften: opdater SEP3/Projektlog med “Midtvejsplan”.</li>
-            </ul>
-          </div>
-        </div>
+          <!-- Fredag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Fredag</span></div>
+            <div class="day-tasks">
 
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – ren repetition</div>
-          <ul>
-            <li>Tirsdag: 2 timer ADS (mini-eksamenssæt) + 1 time DSY (kort).</li>
-            <li>Onsdag: 1,5 time DNP (projektstatus) + 1 time CAO (kort).</li>
-            <li>Aften: 1 Kattis-opgave.</li>
-          </ul>
+              <h4>DSY</h4>
+              <ul>
+                <li>Forelæsning: distributed trees.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppemøde: sprint 3 review.</li>
+              </ul>
+
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- UGE 43 -->
+
+      <!-- ========================= -->
+      <!-- UGE 43 – ADS: Graphs & CAO: Memory Hierarchy -->
+      <!-- ========================= -->
       <section class="week-card" data-week="43">
         <div class="week-header">
-          <div class="week-title">Uge 43 – Forfining & robusthed</div>
-          <div class="week-range">Bygger videre på det du kan.</div>
+          <div class="week-title">Uge 43 – Grafer, Memory Hierarchy & DNP strukturer</div>
+          <div class="week-range">Fokus på grafrepræsentationer, hukommelseshierarki og C#‑strukturer.</div>
         </div>
 
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag focus">Fokus: svage punkter</div>
+        <div class="week-calendar">
+
+          <!-- Mandag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Mandag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Graphs – adjacency list vs. adjacency matrix.</li>
+                <li>Noter 10 bullet points.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Memory hierarchy: registers → cache → RAM → disk.</li>
+                <li>Tegn hierarki‑diagram.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppen arbejder på prototype iteration 4.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Styrke de områder du er usikker på (fx grafer eller heaps).</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: fokus på spørgsmål fra studerende.</li>
-              <li>Tirsdag: vælg 1–2 emner og lav ekstra øvelser + noter.</li>
-              <li>Lav 2 Kattis-opgaver på de svage områder.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag focus">Fokus: sammenhæng</div>
+          <!-- Tirsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Tirsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Implementér adjacency list i pseudokode.</li>
+                <li>Lav 2 små øvelser om graftraversering.</li>
+              </ul>
+
+              <h4>DSY</h4>
+              <ul>
+                <li>Skriv note: “Hvad er distributed graph processing?”.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Lav 5 cache‑hit/miss eksempler.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Se sammenhængen mellem tal, logik, CPU og assembly.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: undervisning med helhedsperspektiv.</li>
-              <li>Onsdag: skriv en side “Hvordan en instruktion eksekveres” i CAO/CPU-arkitektur.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 medium opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag focus">Fokus: robusthed</div>
+          <!-- Onsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Onsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Lav en C#‑struct “Point” med X/Y.</li>
+                <li>Lav en liste af Points og en metode til at udskrive dem.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Simulér cache‑levels i Logisim (L1/L2).</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Gøre projektet mere robust (fejl-håndtering, logging).</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: undervisning om best practices.</li>
-              <li>Onsdag: tilføj fejl-håndtering og logging i projektet.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag focus">Fokus: arkitekturmønstre</div>
+          <!-- Torsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Torsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: BFS & DFS.</li>
+                <li>Noter forskelle og brugsscenarier.</li>
+              </ul>
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Øvelse: Lav en “Graph” klasse med addNode/addEdge.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Aften: skriv 5 bullet points til projektets API‑design.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Forstå kendte arkitekturmønstre (fx layered, microservices).</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: undervisning om mønstre.</li>
-              <li>Tirsdag: skriv note “Arkitekturmønstre i SEP3” i DSY/Arkitekturer.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (BFS/DFS‑relateret opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: stabilitet</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have en stabil version af systemet uden kritiske fejl.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: fokus på bugfixes og stabilitet.</li>
-              <li>Torsdag aften: opdater SEP3/Projektlog med “Stabilitetsstatus”.</li>
-            </ul>
-          </div>
-        </div>
+          <!-- Fredag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Fredag</span></div>
+            <div class="day-tasks">
 
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – finpudsning</div>
-          <ul>
-            <li>Tirsdag: 2 timer ADS (svage emner) + 1 time DSY (mønstre).</li>
-            <li>Onsdag: 2 timer DNP (robusthed) + 1 time CAO (helhed).</li>
-            <li>Aften: 1 Kattis-opgave.</li>
-          </ul>
+              <h4>DSY</h4>
+              <ul>
+                <li>Forelæsning: distributed graph algorithms.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppemøde: sprint 4 review.</li>
+              </ul>
+
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- UGE 44 -->
+
+      <!-- ========================= -->
+      <!-- UGE 44 – ADS: Dijkstra & CAO: Cache Optimization -->
+      <!-- ========================= -->
+
       <section class="week-card" data-week="44">
         <div class="week-header">
-          <div class="week-title">Uge 44 – Eksamensfokus starter</div>
-          <div class="week-range">Begynder målrettet eksamensforberedelse.</div>
+          <div class="week-title">Uge 44 – Dijkstra, Cache Optimization & DNP Collections</div>
+          <div class="week-range">Fokus på korteste vej, cache‑optimering og C#‑collections.</div>
         </div>
 
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag exam">Fokus: eksamensopgaver</div>
+        <div class="week-calendar">
+
+          <!-- Mandag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Mandag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Dijkstra’s Algorithm.</li>
+                <li>Noter 10 bullet points.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Cache optimization: spatial & temporal locality.</li>
+                <li>Tegn eksempler på locality.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppen arbejder på prototype iteration 5.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Være komfortabel med eksamenslignende opgaver.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: gennemgang af eksamensopgaver i undervisningen.</li>
-              <li>Tirsdag: lav 1 helt eksamenssæt under tidspres (fx 2 timer).</li>
-              <li>Lav 2 Kattis-opgaver.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (korteste‑vej opgave hvis muligt).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag exam">Fokus: mundtlig træning</div>
+          <!-- Tirsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Tirsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Implementér Dijkstra i pseudokode.</li>
+                <li>Lav 2 små øvelser med weighted graphs.</li>
+              </ul>
+
+              <h4>DSY</h4>
+              <ul>
+                <li>Skriv note: “Hvad er distributed shortest path?”.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Lav 5 cache‑optimeringsøvelser.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne holde 5–10 minutters sammenhængende forklaring om et emne.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: træning i undervisningen.</li>
-              <li>Onsdag: vælg 2 emner og øv dem højt som mini-eksamener.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 medium opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag exam">Fokus: mundtlig struktur</div>
+          <!-- Onsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Onsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Lav en C#‑øvelse med List, Dictionary og Queue.</li>
+                <li>Tilføj en metode der udskriver alle elementer.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Simulér cache‑hit/miss i Logisim.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne forklare projektet struktureret (problem, løsning, teknologi).</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: fokus på eksamensspørgsmål.</li>
-              <li>Onsdag: skriv en “eksamenspitch” på 1 side i DNP/Projektlog.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag exam">Fokus: mundtlig træning</div>
+          <!-- Torsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Torsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Greedy algorithms.</li>
+                <li>Noter forskelle på greedy vs. dynamic programming.</li>
+              </ul>
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Øvelse: Lav en “GraphSolver” klasse med Dijkstra‑metode.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Aften: skriv 5 bullet points til projektets performance‑overvejelser.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne forklare arkitektur og kommunikation i dit projekt.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: træning i undervisningen.</li>
-              <li>Tirsdag: øv 5 DSY-kort højt.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (greedy‑relateret opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: rapportstruktur</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have klar rapportstruktur og fordeling af afsnit.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: gruppemøde om rapport.</li>
-              <li>Torsdag aften: opret rapportskabelon i SEP3/Rapport.</li>
-            </ul>
-          </div>
-        </div>
+          <!-- Fredag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Fredag</span></div>
+            <div class="day-tasks">
 
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – eksamensmode</div>
-          <ul>
-            <li>Tirsdag: 2 timer ADS (eksamenssæt) + 1 time DSY (kort).</li>
-            <li>Onsdag: 1,5 time DNP (pitch) + 1 time CAO (mini-eksamener).</li>
-            <li>Aften: 1 Kattis-opgave.</li>
-          </ul>
+              <h4>DSY</h4>
+              <ul>
+                <li>Forelæsning: distributed greedy algorithms.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppemøde: sprint 5 review.</li>
+              </ul>
+
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- UGE 45 -->
+
+      <!-- ========================= -->
+      <!-- UGE 45 – ADS: Dynamic Programming & CAO: Branch Prediction -->
+      <!-- ========================= -->
       <section class="week-card" data-week="45">
         <div class="week-header">
-          <div class="week-title">Uge 45 – Finpudsning & rapport</div>
-          <div class="week-range">Nærmer sig slutningen af undervisningen.</div>
+          <div class="week-title">Uge 45 – Dynamic Programming, Branch Prediction & DNP avancerede klasser</div>
+          <div class="week-range">Fokus på DP‑strategier, CPU‑forudsigelse og C#‑design.</div>
         </div>
 
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag exam">Fokus: sidste huller</div>
+        <div class="week-calendar">
+
+          <!-- Mandag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Mandag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: Dynamic Programming – overlapping subproblems.</li>
+                <li>Noter 10 bullet points.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Branch prediction: static vs. dynamic.</li>
+                <li>Tegn pipeline med branch‑mis‑prediction.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppen arbejder på prototype iteration 6.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Lukke de sidste huller i forståelsen.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: spørgsmål og svar i undervisningen.</li>
-              <li>Tirsdag: lav 1 kort eksamenssæt på svage emner.</li>
-              <li>Lav 2 Kattis-opgaver.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (DP‑relateret opgave hvis muligt).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag exam">Fokus: eksamensspørgsmål</div>
+          <!-- Tirsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Tirsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Implementér Fibonacci med DP (bottom‑up).</li>
+                <li>Lav 2 små øvelser om memoization.</li>
+              </ul>
+
+              <h4>DSY</h4>
+              <ul>
+                <li>Skriv note: “Hvad er distributed DP?”.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Lav 5 branch‑prediction eksempler.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have 15–20 “forklar dette”-kort klar.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: gennemgang af typiske eksamensspørgsmål.</li>
-              <li>Onsdag: øv 10 kort højt.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 medium opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag exam">Fokus: projektfærdiggørelse</div>
+          <!-- Onsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Onsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Lav en C#‑klasse “AdvancedStudent”.</li>
+                <li>Tilføj inheritance og override metoder.</li>
+              </ul>
+
+              <h4>CAO</h4>
+              <ul>
+                <li>Simulér branch‑prediction i Logisim.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Projektet skal være funktionelt færdigt.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: sidste features i undervisningen.</li>
-              <li>Onsdag: bugfixes og oprydning i kode.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag exam">Fokus: projektforankring</div>
+          <!-- Torsdag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Torsdag</span></div>
+            <div class="day-tasks">
+
+              <h4>ADS</h4>
+              <ul>
+                <li>Forelæsning: DP vs. Greedy.</li>
+                <li>Noter forskelle og brugsscenarier.</li>
+              </ul>
+
+              <h4>DNP</h4>
+              <ul>
+                <li>Øvelse: Lav en “DPHelper” klasse.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Aften: skriv 5 bullet points til projektets performance‑strategi.</li>
+              </ul>
+
             </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Koble teori og projekt tæt sammen.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: fokus på projekt i undervisningen.</li>
-              <li>Tirsdag: skriv note “Teori → SEP3” i DSY/Projektrefleksion.</li>
-            </ul>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (DP‑relateret opgave).</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: rapportskrivning starter</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have første udkast til 2–3 rapportafsnit.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: skriv på rapporten i gruppen.</li>
-              <li>Torsdag aften: skriv 1 side individuelt (fx metode eller arkitektur).</li>
-            </ul>
-          </div>
-        </div>
+          <!-- Fredag -->
+          <div class="day-column">
+            <div class="day-header"><span class="day-name">Fredag</span></div>
+            <div class="day-tasks">
 
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – rapport + eksamen</div>
-          <ul>
-            <li>Tirsdag: 1,5 time ADS (svage emner) + 1 time DSY (teori→projekt).</li>
-            <li>Onsdag: 1,5 time DNP (bugfixes) + 1 time CAO (kort).</li>
-            <li>Aften: 1 Kattis-opgave.</li>
-          </ul>
+              <h4>DSY</h4>
+              <ul>
+                <li>Forelæsning: distributed DP.</li>
+              </ul>
+
+              <h4>SEP3</h4>
+              <ul>
+                <li>Gruppemøde: sprint 6 review.</li>
+              </ul>
+
+            </div>
+
+            <div class="day-evening">
+              <h4>Aften</h4>
+              <ul>
+                <li>Kattis (1 let opgave).</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- UGE 46 -->
+      <!-- ========================= -->
+      <!-- UGE 46 – Næstsidste undervisningsuge -->
+      <!-- ========================= -->
+
       <section class="week-card" data-week="46">
-        <div class="week-header">
-          <div class="week-title">Uge 46 – Næstsidste undervisningsuge</div>
-          <div class="week-range">Fokus på ro og overblik.</div>
-        </div>
-
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag exam">Fokus: fuldt eksamenssæt</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne gennemføre et fuldt eksamenssæt uden panik.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: gennemgang af eksamensstrategi.</li>
-              <li>Tirsdag: lav 1 fuldt sæt (3 timer) hvis muligt, ellers 2 timer.</li>
-              <li>Lav 2 Kattis-opgaver.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag exam">Fokus: rolig mundtlig</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Føle dig tryg ved at blive spurgt om vilkårlige emner.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: “eksamenssimulering” i undervisningen.</li>
-              <li>Onsdag: øv 10 kort højt, gerne med en anden person.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag exam">Fokus: mundtlig træning</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne forklare projektet flydende med fokus på teori.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: eksamensspørgsmål i undervisningen.</li>
-              <li>Onsdag: øv 2–3 mulige eksamensspørgsmål højt.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag exam">Fokus: mundtlig træning</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne forklare arkitektur, kommunikation og sikkerhed i projektet.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: eksamenssimulering.</li>
-              <li>Tirsdag: øv 5 DSY-kort højt.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: rapportudkast</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have et næsten komplet rapportudkast.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: skriv på rapporten.</li>
-              <li>Torsdag aften: gennemlæs og ret 1–2 afsnit.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – eksamenssimulering</div>
-          <ul>
-            <li>Tirsdag: 3 timer ADS (eksamenssæt) + 1 time DSY (kort).</li>
-            <li>Onsdag: 1,5 time DNP (mundtlig) + 1 time CAO (kort).</li>
-            <li>Aften: 1 Kattis-opgave.</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- UGE 47 -->
-      <section class="week-card" data-week="47">
-        <div class="week-header">
-          <div class="week-title">Uge 47 – Sidste undervisningsuge</div>
-          <div class="week-range">Afslutter undervisning, går mod projekt/eksamen.</div>
-        </div>
-
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag exam">Fokus: let repetition</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Kunne repetere uden at lære nyt – fokus på ro.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: afsluttende undervisning.</li>
-              <li>Tirsdag: kort repetition af noter, ingen nye emner.</li>
-              <li>Lav 1–2 Kattis-opgaver hvis du har energi.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag exam">Fokus: rolig gennemgang</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Føle dig tryg ved eksamen uden at presse dig selv.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag: afsluttende undervisning.</li>
-              <li>Onsdag: let gennemgang af kort, ikke hardcore træning.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag exam">Fokus: projekt klar</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Projektet skal være klar til eksamen.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Torsdag: afsluttende undervisning.</li>
-              <li>Onsdag: sidste småfix og oprydning.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag exam">Fokus: rolig repetition</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have styr på begreber uden at overbelaste dig.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Fredag: afsluttende undervisning.</li>
-              <li>Tirsdag: let gennemgang af DSY-noter.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: rapport næsten færdig</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Rapporten skal være tæt på færdig.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Mandag/fredag: rapportskrivning.</li>
-              <li>Torsdag aften: gennemlæs hele rapporten og lav liste over mangler.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – rolig uge</div>
-          <ul>
-            <li>Tirsdag: let repetition i ADS/DSY, ingen hård træning.</li>
-            <li>Onsdag: let repetition i DNP/CAO.</li>
-            <li>Aften: kun Kattis hvis du har overskud.</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- UGE 48 (efter sidste undervisningsdag, overgang til projekt/eksamen) -->
-      <section class="week-card" data-week="48">
-        <div class="week-header">
-          <div class="week-title">Uge 48 – Overgang til projekt & eksamen</div>
-          <div class="week-range">Undervisning slut, fokus på rapport & eksamener.</div>
-        </div>
-
-        <div class="week-grid">
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">ADS</div>
-              <div class="course-tag exam">Fokus: eksamensstrategi</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have en klar plan for de sidste dage før skriftlig eksamen.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Tirsdag: planlæg hvilke emner du repeterer hvilke dage.</li>
-              <li>Lav 1 kort eksamenssæt.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">CAO</div>
-              <div class="course-tag exam">Fokus: mundtlig plan</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Planlæg hvilke emner du vil være ekstra skarp på.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Onsdag: lav en liste over “top 10 emner” og øv dem kort.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DNP</div>
-              <div class="course-tag exam">Fokus: mundtlig finpudsning</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have en rolig, klar måde at forklare projektet på.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Onsdag: øv din “eksamenspitch” 2–3 gange.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">DSY</div>
-              <div class="course-tag exam">Fokus: mundtlig finpudsning</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Have styr på hvordan du kobler teori og projekt.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Tirsdag: øv 5 DSY-kort med fokus på projekt.</li>
-            </ul>
-          </div>
-
-          <div class="course-card">
-            <div class="course-header">
-              <div class="course-name">SEP3</div>
-              <div class="course-tag project">Fokus: rapport færdig</div>
-            </div>
-            <div class="course-section-title">Mål</div>
-            <ul>
-              <li>Rapporten skal være klar til aflevering.</li>
-            </ul>
-            <div class="course-section-title">Konkrete opgaver</div>
-            <ul>
-              <li>Hele ugen: finpudsning, korrektur, referencer.</li>
-              <li>Fredag: endelig gennemlæsning og tjek mod krav.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="day-row">
-          <div class="day-label">Tirsdag & onsdag – rolig eksamensforberedelse</div>
-          <ul>
-            <li>Tirsdag: ADS/DSY-planlægning og let repetition.</li>
-            <li>Onsdag: DNP/CAO-pitch og kort træning.</li>
-            <li>Aften: kun let repetition, ingen hård træning.</li>
-          </ul>
-        </div>
-      </section>
-
-    </div>
-
-    <div class="footer-note">
-      Tip: Gem denne side som PDF via <strong>Print → Save as PDF</strong>, eller host den som GitHub Page.<br />
-      Du kan altid justere planen løbende – den er et kompas, ikke en lænke.
-    </div>
+  <div class="week-header">
+    <div class="week-title">Uge 46 – Næstsidste undervisningsuge</div>
+    <div class="week-range">Fokus på ro, overblik og eksamensforberedelse.</div>
   </div>
 
-  <script>
-    const weeks = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48];
-    const weekNav = document.getElementById("weekNav");
-    const weekCards = document.querySelectorAll(".week-card");
+  <div class="week-calendar">
 
-    weeks.forEach((w, idx) => {
-      const btn = document.createElement("button");
-      btn.textContent = "Uge " + w;
-      btn.className = "week-btn" + (idx === 0 ? " active" : "");
-      btn.dataset.week = w;
-      btn.addEventListener("click", () => {
-        document
-          .querySelectorAll(".week-btn")
-          .forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        weekCards.forEach(card => {
-          card.classList.toggle("active", card.dataset.week === String(w));
-        });
-      });
-      weekNav.appendChild(btn);
-    });
-  </script>
+    <!-- Mandag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Mandag</span></div>
+      <div class="day-tasks">
+
+        <h4>CAO</h4>
+        <ul><li>Eksamenssimulering i undervisningen.</li></ul>
+
+        <h4>SEP3</h4>
+        <ul><li>Skriv på rapporten (struktur + indledning).</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Let repetition.</li></ul>
+      </div>
+    </div>
+
+    <!-- Tirsdag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Tirsdag</span></div>
+      <div class="day-tasks">
+
+        <h4>ADS</h4>
+        <ul><li>3 timer ADS eksamenssæt (roligt tempo).</li></ul>
+
+        <h4>DSY</h4>
+        <ul><li>Øv 5 DSY‑kort højt.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>1 Kattis‑opgave.</li></ul>
+      </div>
+    </div>
+
+    <!-- Onsdag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Onsdag</span></div>
+      <div class="day-tasks">
+
+        <h4>DNP</h4>
+        <ul>
+          <li>1,5 time mundtlig træning (eksamenspitch).</li>
+          <li>Øv 2–3 mulige eksamensspørgsmål højt.</li>
+        </ul>
+
+        <h4>CAO</h4>
+        <ul><li>Øv 10 CAO‑kort højt.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>1 Kattis‑opgave.</li></ul>
+      </div>
+    </div>
+
+    <!-- Torsdag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Torsdag</span></div>
+      <div class="day-tasks">
+
+        <h4>ADS</h4>
+        <ul><li>Gennemgang af eksamensstrategi.</li></ul>
+
+        <h4>DNP</h4>
+        <ul><li>Eksamensspørgsmål i undervisningen.</li></ul>
+
+        <h4>SEP3</h4>
+        <ul><li>Aften: gennemlæs og ret 1–2 afsnit.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Let repetition.</li></ul>
+      </div>
+    </div>
+
+    <!-- Fredag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Fredag</span></div>
+      <div class="day-tasks">
+
+        <h4>DSY</h4>
+        <ul><li>Eksamenssimulering.</li></ul>
+
+        <h4>SEP3</h4>
+        <ul><li>Skriv på rapporten (resultater + diskussion).</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Let repetition.</li></ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+      <!-- ========================= -->
+      <!-- UGE 47 – Sidste undervisningsuge -->
+      <!-- ========================= -->
+
+      <section class="week-card" data-week="47">
+  <div class="week-header">
+    <div class="week-title">Uge 47 – Sidste undervisningsuge</div>
+    <div class="week-range">Afslutter undervisning, går mod projekt & eksamen.</div>
+  </div>
+
+  <div class="week-calendar">
+
+    <!-- Mandag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Mandag</span></div>
+      <div class="day-tasks">
+
+        <h4>CAO</h4>
+        <ul><li>Afsluttende undervisning.</li></ul>
+
+        <h4>SEP3</h4>
+        <ul><li>Rapportskrivning (struktur + finpudsning).</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Let repetition.</li></ul>
+      </div>
+    </div>
+
+    <!-- Tirsdag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Tirsdag</span></div>
+      <div class="day-tasks">
+
+        <h4>ADS</h4>
+        <ul><li>Kort repetition af noter – ingen nye emner.</li></ul>
+
+        <h4>DSY</h4>
+        <ul><li>Let gennemgang af DSY‑noter.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Kattis kun hvis du har energi.</li></ul>
+      </div>
+    </div>
+
+    <!-- Onsdag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Onsdag</span></div>
+      <div class="day-tasks">
+
+        <h4>CAO</h4>
+        <ul><li>Let gennemgang af kort – ikke hardcore træning.</li></ul>
+
+        <h4>DNP</h4>
+        <ul><li>Sidste småfix og oprydning i projektet.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Kattis kun hvis overskud.</li></ul>
+      </div>
+    </div>
+
+    <!-- Torsdag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Torsdag</span></div>
+      <div class="day-tasks">
+
+        <h4>ADS</h4>
+        <ul><li>Afsluttende undervisning.</li></ul>
+
+        <h4>DNP</h4>
+        <ul><li>Afsluttende undervisning.</li></ul>
+
+        <h4>SEP3</h4>
+        <ul><li>Aften: gennemlæs hele rapporten og lav liste over mangler.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Let repetition.</li></ul>
+      </div>
+    </div>
+
+    <!-- Fredag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Fredag</span></div>
+      <div class="day-tasks">
+
+        <h4>DSY</h4>
+        <ul><li>Afsluttende undervisning.</li></ul>
+
+        <h4>SEP3</h4>
+        <ul><li>Rapportskrivning (resultater + konklusion).</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Let repetition.</li></ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+      <!-- ========================= -->
+      <!-- UGE 48 – Eksamensuge -->
+      <!-- ========================= -->
+<section class="week-card" data-week="48">
+  <div class="week-header">
+    <div class="week-title">Uge 48 – Eksamensuge</div>
+    <div class="week-range">Fokus på ro, repetition og eksamensafleveringer.</div>
+  </div>
+
+  <div class="week-calendar">
+
+    <!-- Mandag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Mandag</span></div>
+      <div class="day-tasks">
+
+        <h4>ADS</h4>
+        <ul><li>Let repetition af ADS‑noter.</li></ul>
+
+        <h4>CAO</h4>
+        <ul><li>Let repetition af CAO‑kort.</li></ul>
+
+        <h4>DNP</h4>
+        <ul><li>Let repetition af DNP‑spørgsmål.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Rolig repetition.</li></ul>
+      </div>
+    </div>
+
+    <!-- Tirsdag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Tirsdag</span></div>
+      <div class="day-tasks">
+
+        <h4>SEP3</h4>
+        <ul><li>Rapportskrivning (finpudsning + korrektur).</li></ul>
+
+        <h4>ADS</h4>
+        <ul><li>Let repetition – ingen nye emner.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Let repetition.</li></ul>
+      </div>
+    </div>
+
+    <!-- Onsdag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Onsdag</span></div>
+      <div class="day-tasks">
+
+        <h4>SEP3</h4>
+        <ul><li>Aflevering af SEP3‑rapport.</li></ul>
+
+        <h4>DNP</h4>
+        <ul><li>Let repetition af mundtlige spørgsmål.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Fri eller let repetition.</li></ul>
+      </div>
+    </div>
+
+    <!-- Torsdag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Torsdag</span></div>
+      <div class="day-tasks">
+
+        <h4>ADS</h4>
+        <ul><li>Let repetition – fokus på ro.</li></ul>
+
+        <h4>CAO</h4>
+        <ul><li>Let repetition – fokus på ro.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Rolig aften.</li></ul>
+      </div>
+    </div>
+
+    <!-- Fredag -->
+    <div class="day-column">
+      <div class="day-header"><span class="day-name">Fredag</span></div>
+      <div class="day-tasks">
+
+        <h4>DNP</h4>
+        <ul><li>Mundtlig eksamen.</li></ul>
+
+        <h4>SEP3</h4>
+        <ul><li>Projektfremlæggelse.</li></ul>
+
+      </div>
+
+      <div class="day-evening">
+        <h4>Aften</h4>
+        <ul><li>Fri.</li></ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+      <div class="footer-note">
+        Lavet af Magnus Forbes til eget brug. Alle rettigheder forbeholdes. Indholdet er vejledende og kan ændres uden
+        varsel.
+      </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,269 @@
+/* ------------------------------
+   VERCEL-STYLE THEME VARIABLES
+--------------------------------*/
+:root {
+  --bg: #050509;
+  --bg-soft: #0b0b10;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --text: #e5e5e5;
+  --text-muted: #9ca3af;
+  --accent: #3b82f6;
+  --accent-glow: #60a5fa;
+  --pill-bg: rgba(255, 255, 255, 0.08);
+  --radius: 10px; /* mindre */
+  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* COURSE COLORS */
+  --ads: #4da3ff;
+  --cao: #c77dff;
+  --dnp: #7dff7d;
+  --dsy: #5df2ff;
+  --sep3: #ffb84d;
+  --evening: #bbbbbb;
+}
+
+/* GLOBAL */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  background: radial-gradient(circle at top, #18181b 0%, #020617 70%);
+  color: var(--text);
+}
+
+/* WRAPPER */
+.wrapper {
+  max-width: 1400px; /* mindre */
+  margin: 0 auto;
+  padding: 20px 20px 40px; /* mindre */
+}
+
+/* HEADER */
+header {
+  margin-bottom: 20px; /* mindre */
+  animation: fadeIn 0.8s ease forwards;
+}
+
+header h1 {
+  font-size: 2rem; /* mindre */
+  margin: 0 0 6px;
+  font-weight: 700;
+  color: #fff;
+}
+
+header p {
+  margin: 2px 0;
+  color: var(--text-muted);
+  font-size: 0.85rem; /* mindre */
+}
+
+/* WEEK NAV */
+.week-nav {
+  display: flex;
+  gap: 6px; /* mindre */
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+}
+
+.week-btn {
+  padding: 6px 12px; /* mindre */
+  border-radius: 8px;
+  background: var(--pill-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+}
+
+.week-btn:hover {
+  border-color: var(--accent-glow);
+  color: var(--accent-glow);
+}
+
+.week-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* WEEK CARD */
+.week-card {
+  display: none;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 16px; /* mindre */
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.week-card.active { display: block; }
+
+.week-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px; /* mindre */
+}
+
+.week-title {
+  font-size: 1.2rem; /* mindre */
+  font-weight: 600;
+  color: #fff;
+}
+
+.week-range {
+  font-size: 0.8rem; /* mindre */
+  color: var(--text-muted);
+}
+
+/* COURSE FILTER */
+.course-filter {
+  display: flex;
+  gap: 6px; /* mindre */
+  margin: 10px 0 20px;
+}
+
+.filter-btn {
+  padding: 6px 12px; /* mindre */
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-muted);
+  font-size: 0.8rem; /* mindre */
+  cursor: pointer;
+  transition: 0.2s ease;
+  backdrop-filter: blur(6px);
+}
+
+.filter-btn:hover {
+  border-color: var(--accent-glow);
+  color: var(--accent-glow);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* WEEK CALENDAR — 5 COLUMNS */
+.week-calendar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px; /* mindre */
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 0; /* mindre */
+}
+
+/* DAY COLUMN */
+.day-column {
+  background: #111;
+  padding: 14px; /* mindre */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* mindre */
+  min-height: 260px; /* mindre */
+  overflow: hidden;
+  transition: 0.25s ease;
+}
+
+.day-column:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+  border-color: var(--accent-glow);
+}
+
+.day-header { margin-bottom: 8px; }
+
+.day-name {
+  font-size: 0.9rem; /* mindre */
+  font-weight: 600;
+  color: #fff;
+}
+
+/* COURSE COLORS */
+h4.ads { color: var(--ads); }
+h4.cao { color: var(--cao); }
+h4.dnp { color: var(--dnp); }
+h4.dsy { color: var(--dsy); }
+h4.sep3 { color: var(--sep3); }
+h4.evening { color: var(--evening); }
+
+/* TASKS */
+.day-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* mindre */
+  flex-grow: 1;
+}
+
+.day-tasks h4,
+.day-evening h4 {
+  font-size: 0.8rem; /* mindre */
+  font-weight: 600;
+  margin: 6px 0 4px; /* mindre */
+}
+
+.day-tasks ul,
+.day-evening ul {
+  list-style: none; /* fjerner dobbelt prikker */
+  padding-left: 0;
+}
+
+.day-tasks ul li,
+.day-evening ul li {
+  font-size: 0.8rem; /* mindre */
+  margin-bottom: 4px; /* mindre */
+  line-height: 1.4;
+  position: relative;
+  padding-left: 12px; /* mindre */
+}
+
+.day-tasks ul li::before,
+.day-evening ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent-glow);
+}
+
+/* EVENING SECTION */
+.day-evening {
+  margin-top: auto;
+  padding-top: 8px; /* mindre */
+  border-top: 1px solid var(--card-border);
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .week-calendar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .week-calendar {
+    grid-template-columns: 1fr;
+  }
+}
