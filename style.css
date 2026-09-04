@@ -1,6 +1,3 @@
-/* ------------------------------
-   VERCEL-STYLE THEME VARIABLES
---------------------------------*/
 :root {
   --bg: #050509;
   --bg-soft: #0b0b10;
@@ -93,6 +90,8 @@ header p {
   border-color: var(--accent);
   box-shadow: 0 0 10px var(--accent-glow);
 }
+
+
 
 /* WEEK CARD */
 .week-card {
