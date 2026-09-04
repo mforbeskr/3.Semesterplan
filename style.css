@@ -164,7 +164,7 @@ header p {
 /* WEEK CALENDAR — 5 COLUMNS */
 .week-calendar {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 16px; /* mindre */
   width: 100%;
   margin: 0 auto;
@@ -250,6 +250,12 @@ h4.evening { color: var(--evening); }
   margin-top: auto;
   padding-top: 8px; /* mindre */
   border-top: 1px solid var(--card-border);
+}
+
+.weekend-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 /* ANIMATIONS */
