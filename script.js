@@ -12,47 +12,93 @@ document.querySelectorAll('.day-column h4').forEach(h4 => {
   if (map[key]) h4.classList.add(map[key]);
 });
 
+// On page-load
+document.querySelectorAll('.day-tasks').forEach(day => {
+
+    const children = [...day.children];
+    let currentBlock = null;
+
+    children.forEach(el => {
+
+        if (el.tagName === 'H4') {
+
+            const course = el.textContent.trim().toLowerCase();
+
+            currentBlock = document.createElement('div');
+            currentBlock.classList.add('course-block');
+
+            if (
+                ['ads', 'cao', 'dnp', 'dsy', 'sep3']
+                .includes(course)
+            ) {
+                currentBlock.classList.add(course);
+            }
+
+            day.insertBefore(currentBlock, el);
+            currentBlock.appendChild(el);
+
+        } else if (
+            currentBlock &&
+            el.tagName === 'UL'
+        ) {
+
+            currentBlock.appendChild(el);
+
+        }
+
+    });
+
+});
+
 // Course filter
 const filterButtons = document.querySelectorAll('.filter-btn');
 
 filterButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const course = btn.dataset.course;
 
-    // Toggle active button
-    filterButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    btn.addEventListener('click', () => {
 
-    // Loop over all day-task groups
-    document.querySelectorAll('.day-tasks').forEach(group => {
-      const h4 = group.querySelector('h4');
-      if (!h4) {
-        group.style.display = 'none';
-        return;
-      }
+        const course = btn.dataset.course;
 
-      const courseName = h4.textContent.trim().toLowerCase();
+        filterButtons.forEach(b =>
+            b.classList.remove('active')
+        );
 
-      if (course === 'all') {
-        group.style.display = '';
-      } else {
-        group.style.display = (courseName === course) ? '' : 'none';
-      }
+        btn.classList.add('active');
+
+        document
+            .querySelectorAll('.course-block')
+            .forEach(block => {
+
+                if (course === 'all') {
+
+                    block.style.display = '';
+
+                } else {
+
+                    block.style.display =
+                        block.classList.contains(course)
+                        ? ''
+                        : 'none';
+                }
+            });
+
+        document
+            .querySelectorAll('.day-evening')
+            .forEach(evening => {
+
+                if (
+                    course === 'all' ||
+                    course === 'evening'
+                ) {
+                    evening.style.display = '';
+                } else {
+                    evening.style.display = 'none';
+                }
+
+            });
+
     });
 
-    // Evening section
-    document.querySelectorAll('.day-evening').forEach(evening => {
-      const isEvening = evening.querySelector('h4').textContent.trim().toLowerCase() === 'aften';
-
-      if (course === 'evening') {
-        evening.style.display = '';
-      } else if (course === 'all') {
-        evening.style.display = '';
-      } else {
-        evening.style.display = 'none';
-      }
-    });
-  });
 });
 
 
