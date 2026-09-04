@@ -127,6 +127,10 @@ header p {
 }
 
 /* COURSE FILTER */
+.course-block {
+  margin-bottom: 12px;
+}
+
 .course-filter {
   display: flex;
   gap: 6px; /* mindre */

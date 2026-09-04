@@ -50,7 +50,39 @@ document.querySelectorAll('.day-tasks').forEach(day => {
 
 });
 
-// Course filter
+// Build course blocks automatically
+document.querySelectorAll('.day-tasks').forEach(day => {
+
+    const nodes = [...day.children];
+    let currentBlock = null;
+
+    nodes.forEach(node => {
+
+        if (node.tagName === 'H4') {
+
+            const course = node.textContent.trim().toLowerCase();
+
+            currentBlock = document.createElement('div');
+            currentBlock.classList.add('course-block', course);
+
+            day.insertBefore(currentBlock, node);
+            currentBlock.appendChild(node);
+
+        } else if (
+            currentBlock &&
+            node.tagName === 'UL'
+        ) {
+
+            currentBlock.appendChild(node);
+
+        }
+
+    });
+
+});
+
+
+// Filter buttons
 const filterButtons = document.querySelectorAll('.filter-btn');
 
 filterButtons.forEach(btn => {
@@ -65,8 +97,7 @@ filterButtons.forEach(btn => {
 
         btn.classList.add('active');
 
-        document
-            .querySelectorAll('.course-block')
+        document.querySelectorAll('.course-block')
             .forEach(block => {
 
                 if (course === 'all') {
@@ -79,20 +110,24 @@ filterButtons.forEach(btn => {
                         block.classList.contains(course)
                         ? ''
                         : 'none';
+
                 }
             });
 
-        document
-            .querySelectorAll('.day-evening')
+        document.querySelectorAll('.day-evening')
             .forEach(evening => {
 
                 if (
                     course === 'all' ||
                     course === 'evening'
                 ) {
+
                     evening.style.display = '';
+
                 } else {
+
                     evening.style.display = 'none';
+
                 }
 
             });
@@ -100,7 +135,6 @@ filterButtons.forEach(btn => {
     });
 
 });
-
 
 // Week navigation
 const weeks = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48];
