@@ -190,7 +190,28 @@ header p {
   border-color: var(--accent-glow);
 }
 
-.day-header { margin-bottom: 8px; }
+.day-header {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.day-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.day-column.today {
+  outline: 1px solid var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.day-column.today .day-date {
+  color: var(--accent-glow);
+  font-weight: 600;
+}
 
 .day-name {
   font-size: 0.9rem; /* mindre */
